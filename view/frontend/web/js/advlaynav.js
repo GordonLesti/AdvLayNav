@@ -21,7 +21,8 @@ define( [ "jquery", "mage/apply/main" , "jquery/ui" ], function( $, mage ) {
         }
         $.ajax( {
             "url": ajaxUrl,
-            dataType: "json"
+            dataType: "json",
+            showLoader: true
         } ).done( function( data ) {
             history.pushState( {}, "", url );
             var productListContent = data[ 0 ];

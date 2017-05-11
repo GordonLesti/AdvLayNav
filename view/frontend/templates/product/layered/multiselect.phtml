@@ -10,18 +10,18 @@
 
  /** @var $block \Part\AdvLayNav\Block\LayeredNavigation\MultiSelect */
 ?>
-<ol class="items">
+<ol class="items multiselect-filter">
     <?php foreach ($block->getFilterItems() as $filterItem): ?>
         <li class="item">
             <?php if ($block->isFilterItemActive($filterItem)): ?>
                 <a href="<?php echo $block->escapeUrl($block->getFilterItemRemoveUrl($filterItem)) ?>">
-                    <input type="checkbox" checked>
-                    <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                    <input class="checkbox-input" type="checkbox" checked="checked"/>
+                    <span class="checkbox-label"><?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></span>
                 </a>
             <?php else: ?>
                 <a href="<?php echo $block->escapeUrl($block->getFilterItemUrl($filterItem)) ?>">
-                    <input type="checkbox">
-                    <?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?>
+                    <input class="checkbox-input" type="checkbox"/>
+                    <span class="checkbox-label"><?php /* @escapeNotVerified */ echo $filterItem->getLabel() ?></span>
                 </a>
             <?php endif ?>
         </li>
