@@ -1,0 +1,38 @@
+& when (@media-common = true) {
+  .filter-options {
+
+    .label-slider {
+      display: block;
+      margin-bottom: 12px;
+      overflow: hidden;
+
+      > span:last-child {
+        float: right;
+      }
+      > span:first-child {
+        float: left;
+      }
+    }
+    .slider-value {
+      margin: 12px 0 0;
+      overflow: hidden;
+
+      .slider-value-item {
+        position: relative;
+        width: 48%;
+
+        &:first-child {
+          float: left;
+        }
+
+        &:last-child {
+          float: right;
+        }
+
+        input {
+          height: 32px;
+        }
+      }
+    }
+  }
+}

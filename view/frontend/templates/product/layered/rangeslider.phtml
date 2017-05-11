@@ -13,11 +13,24 @@
 <?php
     $sliderId = "slider-range-" . $block->getFilterRequestVar();
     $amountId = "amount-" .  $block->getFilterRequestVar();
+    $currencySymbol = $block->getCurrencySymbol();
+
 ?>
-<ol class="items">
-    <li class="item" id="<?php echo $amountId ?>"></li>
-</ol>
+<div class="label-slider">
+    <span><?php echo $block->formatValue($block->getMinValue())?></span>
+    <span><?php echo $block->formatValue($block->getMaxValue())?></span>
+</div>
 <div id="<?php echo $sliderId ?>"></div>
+<div class="slider-value">
+    <div class="slider-value-item">
+        <label><?php echo __('From')?>, <?php echo $currencySymbol?></label>
+        <input id="<?php echo $sliderId?>-input-min" class="js-price" maxlength="9" type="text"/>
+    </div>
+    <div class="slider-value-item">
+        <label><?php echo __('To')?>, <?php echo $currencySymbol?></label>
+        <input id="<?php echo $sliderId?>-input-max" class="js-price" maxlength="9" type="text"/>
+    </div>
+</div>
 <script>
     require( [ "advlaynav/rangeslider" ], function( rangeSlider ) {
         rangeSlider(

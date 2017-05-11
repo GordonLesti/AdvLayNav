@@ -24,7 +24,10 @@ define( [ "jquery", "advlaynav", "jquery/ui" ], function( $, advlaynav ) {
             max: maxValue,
             values: [ leftValue, rightValue ],
             slide: function( event, ui ) {
-                $( "#" + amountId ).text( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+
+                $("#" + sliderId+'-input-min').val(ui.values[ 0 ]);
+                $("#" + sliderId+'-input-max').val(ui.values[ 1 ]);
+
             },
             change: function( event, ui ) {
                 var ajaxUrl;
@@ -42,8 +45,30 @@ define( [ "jquery", "advlaynav", "jquery/ui" ], function( $, advlaynav ) {
                 advlaynav.ajaxCall( ajaxUrl );
             }
         } );
-        $( "#" + amountId ).text( $( "#" + sliderId ).slider( "values", 0 ) +
-          " - " + $( "#" + sliderId ).slider( "values", 1 ) );
+
+        var fromValue = $( "#" + sliderId ).slider("values", 0 );
+        var toValue = $( "#" + sliderId ).slider("values", 1);
+
+        $("input.sliderValue").change(function() {
+            $("#slider").slider("values", $this.data("index"), $this.val());
+        });
+
+
+        var $inputSliderFieldMin = $("#" + sliderId+'-input-min');
+        var $inputSliderFieldMax = $("#" + sliderId+'-input-max');
+
+        $inputSliderFieldMin.val(fromValue);
+        $inputSliderFieldMax.val(toValue);
+
+        $inputSliderFieldMin.change(function () {
+            $( "#" + sliderId ).slider("values", 0, $(this).val());
+        });
+
+        $inputSliderFieldMax.change(function () {
+            $( "#" + sliderId ).slider("values", 1, $(this).val());
+        });
+
+
     };
 
     return createRangeSlider;

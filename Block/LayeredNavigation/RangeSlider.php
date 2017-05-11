@@ -20,6 +20,38 @@ class RangeSlider extends AbstractRenderLayered
      * @var string
      */
     protected $_template = 'Part_AdvLayNav::product/layered/rangeslider.phtml';
+
+
+    /**
+     * @var \Magento\Directory\Model\CurrencyFactory
+     */
+    protected $_currencyFactory;
+
+    /**
+     * @var \Magento\Framework\Pricing\PriceCurrencyInterface
+     */
+    protected $_priceCurrency;
+
+    /**
+     * RangeSlider constructor.
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceHelper
+     * @param array $data
+     */
+    public function __construct(
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Directory\Model\CurrencyFactory $currencyFactory,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $priceHelper,
+        array $data = []
+    )
+    {
+        $this->_currencyFactory = $currencyFactory;
+        $this->_priceCurrency = $priceHelper;
+        parent::__construct($context, $data);
+    }
+
+
     // @codingStandardsIgnoreEnd
 
     /**
@@ -114,5 +146,30 @@ class RangeSlider extends AbstractRenderLayered
     {
         $query = [$this->filter->getRequestVar() => $this->filter->getResetValue()];
         return $this->_urlBuilder->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
+    }
+
+    /**
+     * Get currency label
+     *
+     * @return string
+     */
+    public function getCurrencySymbol()
+    {
+        if ($this->getFilterRequestVar() == 'price') {
+            $currencyCode = $this->_storeManager->getStore()->getCurrentCurrency()->getCode();
+            $currency = $this->_currencyFactory->create()->load($currencyCode);
+            return $currency->getCurrencySymbol();
+        } else {
+            return '';
+        }
+    }
+
+    public function formatValue($value)
+    {
+        if ($this->getFilterRequestVar() == 'price') {
+            return $this->_priceCurrency->convertAndFormat($value, false, 0);
+        }else{
+            return $value;
+        }
     }
 }
