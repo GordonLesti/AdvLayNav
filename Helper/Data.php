@@ -82,7 +82,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $appliedFilters = $state->getFilters();
         foreach ($appliedFilters as $appliedFilter) {
-            $appliedAttributeCode = $appliedFilter->getFilter()->getAttributeModel()->getAttributeCode();
+            $appliedAttributeCode = $appliedFilter->getFilter()->getRequestVar();
             if ($appliedAttributeCode === $attributeCode) {
                 return true;
             }
